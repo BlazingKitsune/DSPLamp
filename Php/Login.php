@@ -14,14 +14,14 @@
 	}
 	else
 	{
-		$stmt = $mysqliCon->prepare("SELECT ID,Username,Password FROM users WHERE (Username =? AND Password =?)");
+		$stmt = $mysqliCon->prepare("SELECT ID,Username,Password,UID FROM users WHERE (Username =? AND Password =?)");
 		$stmt->bind_param("ss", $inData["Username"], $inData["Password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['Username'], $row['Password'], $row['ID'] );
+			returnWithInfo( $row['Username'], $row['Password'], $row['ID'],  $row['UID'] );
 		}
 		else
 		{
@@ -49,9 +49,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $username, $password, $id )
+	function returnWithInfo( $username, $password, $id, $UID )
 	{
-		$retValue = '{"ID":' . $id . ',"Username":"' . $username . '","Password":"' . $password . '","error": ""}';
+		$retValue = '{"ID":' . $id . ',"Username":"' . $username . '","Password":"' . $password . '","UID":' . $UID . ',"error": ""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>

@@ -1,68 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+    <script src="Js/Code.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () 
+        {
+            readCookie();
+            SearchEvents();
+        }
+        , false);
+    </script>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Simple Navigation Bar</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f0f0;
+        /* Add some basic styling to the navigation bar */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Dark background color */
+            font-family: Arial, sans-serif; /* Use a nice font */
         }
-        
-        .login-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .navbar a {
+            float: left; /* Align links to the left side */
+            display: block; /* Make links behave like block elements */
+            color: white; /* White text color */
+            text-align: center; /* Center the text inside links */
+            padding: 14px 20px; /* Add some padding for a nice touch */
+            text-decoration: none; /* No underline on links */
         }
-        
-        .login-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        
-        .login-container input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .login-container input[type="submit"]:hover {
-            background-color: #0056b3;
+
+        .navbar a:hover {
+            background-color: #ddd; /* Change background on hover */
+            color: black; /* Change text color on hover */
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
-    <h2>Login</h2>
-    <form action="#" method="post">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
-    </form>
+<nav class="navbar">
+    <a href="#home">Home</a> <!-- Link to the "Home" section -->
+    <a href="#news">News</a> <!-- Link to the "News" section -->
+    <a href="#contact">Contact</a> <!-- Link to the "Contact" section -->
+    <a href="#about">About</a> <!-- Link to the "About" section -->
+</nav>
+
+<div style="padding: 16px">
 </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple HTML Table</title>
+    <style>
+        /* Basic styling for the table */
+        table {
+            width: 50%; /* Set the width of the table */
+            border-collapse: collapse; /* Collapse borders */
+        }
+
+        th, td {
+            border: 1px solid black; /* Add border to table headers and cells */
+            padding: 8px; /* Add some padding for text in cells */
+            text-align: left; /* Align text to the left in cells */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Light grey background for headers */
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+        <th>Header 3</th>
+        <th>Header 3</th>
+        <th>Header 3</th>
+    </tr>
+    <tbody id = "tbody">
+        <!-- Rows will be added dynamically here -->
+    </tbody>
+</table>
+
+</body>
+</html>
+
 
 </body>
 </html>
