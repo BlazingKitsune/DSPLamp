@@ -9,6 +9,7 @@ var RSO1 = 0;
 var RSO2 = 0;
 var RSO3 = 0;
 var EID = 0;
+var ID = 0;
 
 function doLogin()
 {
@@ -34,10 +35,14 @@ function doLogin()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				console.log(UserID);
 				let jsonObject = JSON.parse( xhr.responseText );
 				UserID = jsonObject.ID;
-				if( UserID < 1 )
+				RSO1 = 0;
+				RSO2 = 0;
+				RSO3 = 0;
+				EID = 0;
+				ID = jsonObject.ID;
+				if( ID < 1 )
 				{		
 					window.alert("Incorrect Username or Password");
 					return;
@@ -126,6 +131,97 @@ function Eventpage()
 	}
 }
 
+function Comments()
+{
+	readCookie();
+	EVID = EID;
+	let jsonCargo = '{"EID" : "' + EVID + '"}';
+
+	let url = urlBase + '/Php/CommentList.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				if (jsonObject.error) 
+				{
+                    console.log(jsonObject.error);
+					let text = ""
+					document.getElementById("tbodyevent").innerHTML = text;
+					return;
+                }
+				let text = "<table>"
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					count = i+1;
+					var EID = jsonObject.results[i].EID;
+					var UsID = jsonObject.results[i].UserID;
+					var Review = jsonObject.results[i].Review;
+					var Rating = jsonObject.results[i].Rating;
+					var CID = jsonObject.results[i].CID;
+					text += "<tr id='row" + i + "'>"
+					text += "<td><a onclick='Eventpage("+EID+")'>Comment "+count+"</a></td>";
+					text += "<td id='EName" + i + "'><span>" + UsID + "</span></td>";
+                    text += "<td id='ECat" + i + "'><span>" + Review + "</span></td>";
+                    text += "<td id='EDesc" + i + "'><span>" + Rating + "</span></td>";
+					if (ID == UsID )
+					{
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='editreview("+ CID +")'>Edit</button>"+ "</td>";
+					}
+					text += "<tr/>"
+				}
+				text += "</table>"
+				document.getElementById("comments").innerHTML = text;
+			}
+		};
+		xhr.send(jsonCargo);
+	}
+	catch(err)
+	{
+		window.alert("Error in Search");
+	}
+}
+
+function editreview(CID)
+{
+	var userInput = prompt("Update Review", "");
+	var ratingInput = prompt("Update Ratings", "");
+
+	if(userInput.lenght != 0)
+	{
+		var jsonCargo = '{"new" : "' + userInput + '","rating" :"' + ratingInput + '","CID" :"'+CID+'"}';
+		let url = urlBase + '/Php/UpdateComment.' + extension;
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					window.alert("Review has been updated");
+				}
+
+			};
+			xhr.send(jsonCargo);
+
+		}
+		catch(err)
+		{
+			window.alert("Error");
+		}
+	}
+
+
+}
+
 function SearchEvents()
 {
 	let public = 1;
@@ -191,7 +287,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "Username=" + Username + ",Password=" + Password + ",UID=" + UID + ",RSO1=" + RSO1 + ",RSO2=" + RSO2 + ",RSO3=" + RSO3 + ",EID=" + EID + ",UserID=" + UserID + ";expires=" + date.toGMTString();
+	document.cookie = "UserID=" + UserID + ",Username=" + Username + ",Password=" + Password + ",UID=" + UID + ",RSO1=" + RSO1 + ",RSO2=" + RSO2 + ",RSO3=" + RSO3 + ",EID=" + EID + ",ID=" + ID + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -234,15 +330,17 @@ function readCookie()
 		{
             EID = tokens[1];
         }
-
-        else if (tokens[0] == "UserID") 
+		else if (tokens[0] == "UserID") 
 		{
-            UserID = parseInt(tokens[1].trim());
+            UserID = tokens[1];
+        }
+
+        else if (tokens[0] == "ID") 
+		{
+            ID = parseInt(tokens[1].trim());
 		}
-		
     }
-	
-	if( UserID < 0 )
+	if( ID < 0 )
 	{
 		window.location.href = "index.html";
 	}

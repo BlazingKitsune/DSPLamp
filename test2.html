@@ -6,6 +6,7 @@
         {
             readCookie();
             Eventpage();
+            Comments();
         }
         , false);
     </script>
@@ -37,7 +38,7 @@
 <body>
 
 <nav class="navbar">
-    <a href="#home">Home</a> <!-- Link to the "Home" section -->
+    <a href="/dsplamp/test.html">Home</a> <!-- Link to the "Home" section -->
     <a href="#news">News</a> <!-- Link to the "News" section -->
     <a href="#contact">Contact</a> <!-- Link to the "Contact" section -->
     <a href="#about">About</a> <!-- Link to the "About" section -->
@@ -74,6 +75,14 @@
         <th>Header 1</th>
     </tr>
     <tbody id = "tbodyevent">
+        <!-- Rows will be added dynamically here -->
+    </tbody>
+</table>
+<table>
+    <tr>
+        <th>Comments</th>
+    </tr>
+    <tbody id = "comments">
         <!-- Rows will be added dynamically here -->
     </tbody>
 </table>
