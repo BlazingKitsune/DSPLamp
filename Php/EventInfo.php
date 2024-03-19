@@ -4,13 +4,7 @@
 	
 	$searchResults = "";
 	$searchCount = 0;
-	$Public = $inData["Public"];
-    $UID = $inData["UID"];
-    $Approve = 1;
-    $RSO = 0;
-    $RSO1 = $inData["RSO1"];
-    $RSO2 = $inData["RSO2"];
-    $RSO3 = $inData["RSO3"];
+	$EID = $inData["EID"];
     
 
 	$host = "localhost"; // Replace with your database host
@@ -25,8 +19,8 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("SELECT * FROM events WHERE ((Public LIKE ? OR UID LIKE ? OR RSO LIKE ? OR RSO LIKE ? OR RSO LIKE ? OR RSO LIKE ?) AND Approve = ?)");
-		$stmt->bind_param("sssssss", $Public, $UID, $RSO, $RSO1, $RSO2, $RSO3, $Approve);
+		$stmt = $mysqliCon->prepare("SELECT * FROM events WHERE (EID LIKE ?) ");
+		$stmt->bind_param("s", $EID);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
