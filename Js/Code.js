@@ -54,7 +54,7 @@ function doLogin()
 
 				saveCookie();
 
-				window.location.href = "test.html";
+				window.location.href = "homepage.html";
 	
 			}
 
@@ -72,7 +72,7 @@ function EventpageHelper(EventID)
 {
 	EID = EventID;
 	saveCookie();
-	window.location.href = "test2.html";
+	window.location.href = "eventpage.html";
 
 }
 function Eventpage()
