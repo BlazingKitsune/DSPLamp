@@ -14,14 +14,14 @@
 	}
 	else
 	{
-		$stmt = $mysqliCon->prepare("SELECT ID,Username,Password,UID,RSO1,RSO2,RSO3 FROM users WHERE (Username =? AND Password =?)");
+		$stmt = $mysqliCon->prepare("SELECT ID,Username,Password,UID,RSO1,RSO2,RSO3,UserLevel FROM users WHERE (Username =? AND Password =?)");
 		$stmt->bind_param("ss", $inData["Username"], $inData["Password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo($row['RSO1'],$row['RSO2'],$row['RSO3'], $row['Username'], $row['Username'], $row['ID'],  $row['UID'] );
+			returnWithInfo($row['RSO1'],$row['RSO2'],$row['RSO3'], $row['Username'], $row['Username'], $row['ID'],  $row['UID'], $row['UserLevel'] );
 		}
 		else
 		{
@@ -49,9 +49,9 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo($RSO1, $RSO2, $RSO3, $username, $password, $id, $UID )
+	function returnWithInfo($RSO1, $RSO2, $RSO3, $username, $password, $id, $UID, $UserLevel )
 	{
-		$retValue = '{"RSO1":' . $RSO1 . ',"RSO2":' . $RSO2 . ',"RSO3":' . $RSO3 . ',"ID":"' . $id . '","Username":"' . $username . '","Password":"' . $password . '","UID":' . $UID . ',"error": ""}';
+		$retValue = '{"RSO1":' . $RSO1 . ',"RSO2":' . $RSO2 . ',"RSO3":' . $RSO3 . ',"ID":"' . $id . '","Username":"' . $username . '","Password":"' . $password . '","UID":' . $UID . ',"UserLevel":' . $UserLevel . ',"error": ""}';
 		sendResultInfoAsJson( $retValue );
 	}
 ?>
