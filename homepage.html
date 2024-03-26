@@ -37,10 +37,10 @@
 <body>
 
 <nav class="navbar">
-    <a href="/dsplamp/homepage.html">Home</a> <!-- Link to the "Home" section -->
-    <a href="/dsplamp/unipage.html">Universities</a> <!-- Link to the "News" section -->
-    <a href="/dsplamp/rsopage.html">RSO</a> <!-- Link to the "Contact" section -->
-    <a href="/dsplamp/index.html">Reset</a> <!-- Link to the "About" section -->
+    <a href="#home">Home</a> <!-- Link to the "Home" section -->
+    <a href="#news">News</a> <!-- Link to the "News" section -->
+    <a href="#contact">Contact</a> <!-- Link to the "Contact" section -->
+    <a href="#about">About</a> <!-- Link to the "About" section -->
 </nav>
 
 <div style="padding: 16px">
@@ -50,34 +50,68 @@
 <head>
     <title>Simple HTML Table</title>
     <style>
+        
+        /* Basic styling for the background */
+        body{
+        background-color:rgb(119, 101, 0);
+        background-image: url(Assets/EzqCRcdUYAAdbZg.0.jpeg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+
         /* Basic styling for the table */
         table {
-            width: 50%; /* Set the width of the table */
-            border-collapse: collapse; /* Collapse borders */
+            margin: auto;
+            border-color: rgb(0, 0, 0);
+            box-shadow: -1px -1px 6px hsl(192, 100%, 50%), 2px 2px 6px hsl(49, 100%, 50%);
         }
 
         th, td {
-            border: 1px solid black; /* Add border to table headers and cells */
-            padding: 8px; /* Add some padding for text in cells */
-            text-align: left; /* Align text to the left in cells */
+
+            border: 2px solid rgb(255, 208, 0);
+            padding: 5px;
+            margin: 10px 0;
+             
+            /*text-align: left; /* Align text to the left in cells*/
         }
 
-        th {
-            background-color: #f2f2f2; /* Light grey background for headers */
+        h1{
+            text-shadow: 0px 0px 3px hsl(184, 100%, 50%);
+            margin: auto;
+            text-align: center;
+            margin: 10px 0;
+            color: rgb(0, 195, 202);
+            font-size: 30px;
         }
+
     </style>
 </head>
 <body>
 
-<table>
-    <tr>
-        <th>Header 1</th>
-        <th>Header 2</th>
-        <th>Header 3</th>
-        <th>Header 3</th>
-        <th>Header 3</th>
-        <th>Header 3</th>
+<h1>Schedule Table</h1>
+
+<table border="4" align="center" style="background-color: rgb(44, 44, 44);">
+    <tr align="center" style="background-color: rgb(255, 208, 0);">
+        <th width="100">Header 1</th>
+        <th width="100">Header 2</th>
+        <th width="100">Header 3</th>
+        <th width="100">Header 3</th>
+        <th width="100">Header 3</th>
+        <th width="100">Header 3</th>
     </tr>
+
+    <!-- TESTING PURPOSES ONLY -->
+    <tr align="center" style="background-color: rgb(207, 169, 0);">
+        <td>TEST 1</td>
+        <td>TEST 2</td>
+        <td>TEST 3</td>
+        <td>TEST 4</td>
+        <td>TEST 5</td>
+        <td>TEST 6</td>
+    </tr>
+
     <tbody id = "tbody">
         <!-- Rows will be added dynamically here -->
     </tbody>
