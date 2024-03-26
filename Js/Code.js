@@ -218,8 +218,6 @@ function editreview(CID)
 			window.alert("Error");
 		}
 	}
-
-
 }
 
 function SearchEvents()
@@ -324,7 +322,15 @@ function SearchUni()
                     text += "<td id='ECat" + i + "'><span>" + UDescription + "</span></td>";
                     text += "<td id='EDesc" + i + "'><span>" + UStudentsNum + "</span></td>";
                     text += "<td id='Date" + i + "'><span>" + UUID + "</span></td>";
-
+					if (UID == UUID )
+					{
+						var temp = -1;
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ temp +")'>Leave</button>"+ "</td>";
+					}
+					if (UID == -1 )
+					{
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ UUID +")'>Join</button>"+ "</td>";
+					}
 					text += "<tr/>"
 				}
 				text += "</table>"
@@ -336,6 +342,47 @@ function SearchUni()
 	catch(err)
 	{
 		window.alert("Error in Search");
+	}
+
+}
+
+function edituni(UUID)
+{
+	readCookie();
+	var jsonCargo = '{"UUID" :"'+UUID+'","ID" :"'+ID+'"}';
+	let url = urlBase + '/Php/UpdateUni.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				if(UUID == 0)
+				{
+					readCookie();
+					UID = -1;
+					saveCookie();
+					window.location.href = "unipage.html";
+				}
+				else
+				{
+					readCookie();
+					UID = UUID;
+					saveCookie();
+					window.location.href = "unipage.html";
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error");
 	}
 
 }

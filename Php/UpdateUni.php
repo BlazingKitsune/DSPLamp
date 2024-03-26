@@ -4,14 +4,8 @@
 	
 	$searchResults = "";
 	$searchCount = 0;
-	$Public = $inData["Public"];
-    $UID = $inData["UID"];
-    $Approve = 1;
-    $RSO = -1;
-    $RSO1 = $inData["RSO1"];
-    $RSO2 = $inData["RSO2"];
-    $RSO3 = $inData["RSO3"];
-    
+	$ID = $inData["ID"];
+    $UUID = $inData["UUID"];
 
 	$host = "localhost"; // Replace with your database host
     $dbname = "dsp"; // Replace with your database name
@@ -25,33 +19,14 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("SELECT * FROM events WHERE ((Public LIKE ? OR UID LIKE ? OR RSO LIKE ? OR RSO LIKE ? OR RSO LIKE ? OR RSO LIKE ?) AND Approve = ?)");
-		$stmt->bind_param("sssssss", $Public, $UID, $RSO, $RSO1, $RSO2, $RSO3, $Approve);
+		$stmt = $mysqliCon->prepare("UPDATE users SET UID = ? WHERE (ID LIKE ?) ");
+		$stmt->bind_param("ss",$UUID, $ID);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
-		
-		while($row = $result->fetch_assoc())
-		{
-			if( $searchCount > 0 )
-			{
-				$searchResults .= ",";
-			}
-			$searchCount++;
-			$searchResults .= '{"EName" : "' . $row["EName"]. '", "ECat" : "' . $row["ECat"]. '", "EDesc" : "' . $row["EDesc"]. '", "Time" : "' . $row["Time"]. '", "Date" : "' . $row["Date"]. '", "Location" : "' . $row["Location"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "EID" : "' . $row["EID"]. '"}';
-		}
-		
-		if( $searchCount == 0 )
-		{
-			returnWithError( "No Records Found!" );
-		}
-		else
-		{
-			returnWithInfo( $searchResults );
-		}
-		
 		$stmt->close();
 		$mysqliCon->close();
+        
 	}
 
 	function getRequestInfo()
