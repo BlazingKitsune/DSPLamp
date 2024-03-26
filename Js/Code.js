@@ -282,6 +282,64 @@ function SearchEvents()
 
 }
 
+function SearchUni()
+{
+	let public = 1;
+	let UniID = UID
+
+
+	let jsonCargo = '{"Public" : "' + public + '", "UID" : "' + UniID + '", "RSO1" : "' + RSO1 + '", "RSO2" : "' + RSO2 + '", "RSO3" : "' + RSO3 + '"}';
+
+	let url = urlBase + '/Php/LoadUni.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				if (jsonObject.error) 
+				{
+                    console.log(jsonObject.error);
+					let text = ""
+					document.getElementById("tbody").innerHTML = text;
+					return;
+                }
+				let text = "<table>"
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					var UName = jsonObject.results[i].Name;
+					var ULocation = jsonObject.results[i].Location;
+					var UDescription = jsonObject.results[i].Description;
+					var UStudentsNum = jsonObject.results[i].StudentsNum;
+					var UUID = jsonObject.results[i].UID;
+
+					text += "<tr id='row" + i + "'>"
+					text += "<td id='EName" + i + "'><span>" + UName + "</span></td>";
+					text += "<td id='EName" + i + "'><span>" + ULocation + "</span></td>";
+                    text += "<td id='ECat" + i + "'><span>" + UDescription + "</span></td>";
+                    text += "<td id='EDesc" + i + "'><span>" + UStudentsNum + "</span></td>";
+                    text += "<td id='Date" + i + "'><span>" + UUID + "</span></td>";
+
+					text += "<tr/>"
+				}
+				text += "</table>"
+				document.getElementById("tbody").innerHTML = text;
+			}
+		};
+		xhr.send(jsonCargo);
+	}
+	catch(err)
+	{
+		window.alert("Error in Search");
+	}
+
+}
+
 function saveCookie()
 {
 	let minutes = 20;
