@@ -173,7 +173,7 @@ function Comments()
                     text += "<td id='EDesc" + i + "'><span>" + Rating + "</span></td>";
 					if (ID == UsID )
 					{
-						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='editreview("+ CID +")'>Edit</button>"+ "</td>";
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='editreview("+ CID +','+ EID +")'>Edit</button>"+ "</td>";
 					}
 					text += "<tr/>"
 				}
@@ -189,36 +189,44 @@ function Comments()
 	}
 }
 
-function editreview(CID)
+function editreview(CID,EID)
 {
 	var userInput = prompt("Update Review", "");
 	var ratingInput = prompt("Update Ratings", "");
-
-	if(userInput.lenght != 0)
+	if(ratingInput <= 5 && ratingInput >=0)
 	{
-		var jsonCargo = '{"new" : "' + userInput + '","rating" :"' + ratingInput + '","CID" :"'+CID+'"}';
-		let url = urlBase + '/Php/UpdateComment.' + extension;
-		let xhr = new XMLHttpRequest();
-		xhr.open("POST", url, true);
-		xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-		try
+		if(userInput.lenght != 0)
 		{
-			xhr.onreadystatechange = function() 
+			var jsonCargo = '{"new" : "' + userInput + '","rating" :"' + ratingInput + '","CID" :"'+CID+'"}';
+			let url = urlBase + '/Php/UpdateComment.' + extension;
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+			try
 			{
-				if (this.readyState == 4 && this.status == 200) 
+				xhr.onreadystatechange = function() 
 				{
-					window.alert("Review has been updated");
-				}
+					if (this.readyState == 4 && this.status == 200) 
+					{
+						window.alert("Review has been updated");
+						EventpageHelper(EID);
+					}
 
-			};
-			xhr.send(jsonCargo);
+				};
+				xhr.send(jsonCargo);
 
-		}
-		catch(err)
-		{
-			window.alert("Error");
+			}
+			catch(err)
+			{
+				window.alert("Error");
+			}
 		}
 	}
+	else
+	{
+		window.alert("Invalid");
+	}
+
 }
 
 function SearchEvents()
@@ -434,7 +442,7 @@ function SearchRso()
                     text += "<td id='EDesc" + i + "'><span>" + RPhone + "</span></td>";
                     text += "<td id='Date" + i + "'><span>" + REmail + "</span></td>";
 					text += "<td id='Date" + i + "'><span>" + RCount + "</span></td>";
-					readCookie()
+					readCookie();
 					if (RSO1 == RID ||  RSO2 == RID || RSO3 == RID)
 					{
 						var temp = -1;
@@ -443,6 +451,7 @@ function SearchRso()
 						var temp3 = RCount;
 
 						var RsoSlot = 0;
+						
 						if(ID != RCreator)
 						{
 							if(RSO1 == RID && (RSO2 != RID || RSO3 != RID))
@@ -464,7 +473,8 @@ function SearchRso()
 								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='editRSO("+ temp +','+ RsoSlot +','+ temp3 +','+ RID +")'>Leave</button>"+ "</td>";
 							}
 						}
-						else if(ID == RCreator && RCount == 1)
+
+						if(ID == RCreator && RCount == 1)
 						{
 							if(RSO1 == RID && (RSO2 != RID || RSO3 != RID))
 							{
@@ -483,6 +493,27 @@ function SearchRso()
 								RsoSlot = 3;
 								temp3--;
 								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ RID +','+ RsoSlot +','+ temp3 +','+ RID +")'>Delete</button>"+ "</td>";
+							}
+						}
+						if(ID == RCreator && RCount >= 4)
+						{
+							if(RSO1 == RID && (RSO2 != RID || RSO3 != RID))
+							{
+								RsoSlot = 1;
+								temp1--;
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
+							}
+							else if(RSO2 == RID && (RSO1 != RID || RSO3 != RID))
+							{
+								RsoSlot = 2;
+								temp2--;
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
+							}
+							else if(RSO3 == RID && (RSO2 != RID || RSO1 != RID))
+							{
+								RsoSlot = 3;
+								temp3--;
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
 							}
 						}
 
@@ -740,6 +771,11 @@ function deleteRSO(TrueRID)
 	{
 		window.alert("Error");
 	}
+}
+
+function addEvent()
+{
+	alert("Hello Fucker, It works but in progress")
 }
 
 function saveCookie()
