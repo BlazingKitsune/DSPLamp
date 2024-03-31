@@ -105,72 +105,91 @@
 </head>
 <body>
 
-<h1>Registered Student Organization</h1>
+<h1>Events</h1>
 
 <table border="4" align="center" style="background-color: rgb(207, 169, 0);">
     <tr align="center" style="background-color: rgb(255, 208, 0);">
-        <th width="500">Add RSO</th>
+        <th width="500">Add Events</th>
     </tr>
 
     <tbody>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Name</label>
+                    <label for="inputField">Event Name</label>
                     <br>
-                    <input type="input" id="RSOName" name="RSOName">
+                    <input type="input" id="EventName" name="EventName">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Category</label>
+                    <label for="inputField">Event Category</label>
                     <br>
-                    <input type="input" id="RSOCategory" name="RSOCategory">
+                    <input type="input" id="EventCategory" name="EventCategory">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Description</label>
+                    <label for="inputField">Event Description</label>
                     <br>
-                    <input type="input" id="RSODescription" name="RSODescription">
+                    <input type="input" id="EventDescription" name="EventDescription">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Location</label>
+                    <label for="inputField">Event Time</label>
                     <br>
-                    <input type="input" id="RSOLocation" name="RSOLocation">
+                    <input type="input" id="EventTime" name="EventTime">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Phone</label>
+                    <label for="inputField">Event Date</label>
                     <br>
-                    <input type="input" id="RSOPhone" name="RSOPhone">
+                    <input type="input" id="EventDate" name="EventDate">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <label for="inputField">RSO Email</label>
+                    <label for="inputField">Event Location</label>
                     <br>
-                    <input type="input" id="RSOEmail" name="RSOEmail">
+                    <input type="input" id="EventLocation" name="EventLocation">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <button onclick="addRso();" >Add</button>
+                    <label for="inputField">Event Phone</label>
+                    <br>
+                    <input type="input" id="EventPhone" name="EventPhone">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Email</label>
+                    <br>
+                    <input type="input" id="EventEmail" name="EventEmail">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <button onclick="addEventPublic();" >Add Public</button>
+                    <button onclick="addEventPrivate();" >Add Private</button>
                 </div>
             </td>
         </tr>

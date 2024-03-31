@@ -4,8 +4,8 @@
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () 
         {
+            searchApprove();
             readCookie();
-            SearchRso();
         }
         , false);
     </script>
@@ -45,6 +45,7 @@
     <a onclick="gotoRso();">Add RSO</a>
     <a href="/dsplamp/AddEvent.html">Add Events</a>
     <a onclick="gotoApprove();">Approve Events</a>
+    
 </nav>
 
 <div style="padding: 16px">
@@ -88,29 +89,40 @@
             margin: 10px 0;
             color: rgb(0, 195, 202);
             font-size: 30px;
+        
+        }
+
+        td{
+            text-align: center; /* Center-align the content within the table cell */
+        }
+        .centered-content{
+            text-align: center; /* Center-align the content inside this div */
+        }
+
+        .centered-content input{
+            width: 400px; /* Set the width of the input field to 400 pixels */
         }
 
     </style>
 </head>
 <body>
 
-<h1>Registered Student Organization Table</h1>
+    <h1>Approve Table</h1>
 
-<table border="4" align="center" style="background-color: rgb(207, 169, 0);">
-    <tr align="center" style="background-color: rgb(255, 208, 0);">
-        <th width="100">Name</th>
-        <th width="100">Category</th>
-        <th width="100">Description</th>
-        <th width="100">Phone</th>
-        <th width="100">Email</th>
-        <th width="100">Member Count</th>
-        <th width="100">Actions</th>
-    </tr>
-
-    <tbody id = "tbody">
-        <!-- Rows will be added dynamically here -->
-    </tbody>
-</table>
+    <table border="4" align="center" style="background-color: rgb(207, 169, 0);">
+        <tr align="center" style="background-color: rgb(255, 208, 0);">
+            <th width="100">Action</th>
+            <th width="100">Name</th>
+            <th width="100">Category</th>
+            <th width="100">Description</th>
+            <th width="100">Date</th>
+            <th width="100">Location</th>
+        </tr>
+    
+        <tbody id = "tbody">
+            <!-- Rows will be added dynamically here -->
+        </tbody>
+    </table>
 
 </body>
 </html>

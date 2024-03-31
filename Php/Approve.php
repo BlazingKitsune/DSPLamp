@@ -1,15 +1,11 @@
 <?php
 
 	$inData = getRequestInfo();
-
-	$RSOName = $inData["RSOName"];
-    $RSOCategory = $inData["RSOCategory"];
-    $RSODescription = $inData["RSODescription"];
-    $RSOLocation = $inData["RSOLocation"];
-    $RSOPhone = $inData["RSOPhone"];
-    $RSOEmail = $inData["RSOEmail"];
-    $RSOID = $inData["ID"];
-    $RSOUID = $inData["UID"];
+	
+	$searchResults = "";
+	$searchCount = 0;
+	$Approve = $inData["Approve"];
+    $EID = $inData["EID"];
 
 	$host = "localhost"; // Replace with your database host
     $dbname = "dsp"; // Replace with your database name
@@ -23,18 +19,14 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("INSERT into rso (Name, Category, Description, Location, Phone, Email, Creator, URID) VALUES(?,?,?,?,?,?,?,?)");
-		$stmt->bind_param("ssssssss", $RSOName, $RSOCategory, $RSODescription, $RSOLocation, $RSOPhone, $RSOEmail, $RSOID, $RSOUID);
+		$stmt = $mysqliCon->prepare("UPDATE events SET Approve = ? WHERE (EID LIKE ?) ");
+		$stmt->bind_param("ss",$Approve, $EID);
 		$stmt->execute();
-
-        // Get the ID of the last inserted record
-        $lastInsertedID = $mysqliCon->insert_id;
-
+		
+		$result = $stmt->get_result();
 		$stmt->close();
 		$mysqliCon->close();
-
-        // Return the RID (last inserted ID)
-        returnWithInfo($lastInsertedID);
+        
 	}
 
 	function getRequestInfo()
@@ -56,7 +48,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"RID":"' . $searchResults . '","error":""}';
+		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

@@ -2,14 +2,18 @@
 
 	$inData = getRequestInfo();
 
-	$RSOName = $inData["RSOName"];
-    $RSOCategory = $inData["RSOCategory"];
-    $RSODescription = $inData["RSODescription"];
-    $RSOLocation = $inData["RSOLocation"];
-    $RSOPhone = $inData["RSOPhone"];
-    $RSOEmail = $inData["RSOEmail"];
-    $RSOID = $inData["ID"];
-    $RSOUID = $inData["UID"];
+	$EventName = $inData["EventName"];
+    $EventCategory = $inData["EventCategory"];
+    $EventDescription = $inData["EventDescription"];
+    $EventTime = $inData["EventTime"];
+    $EventDate = $inData["EventDate"];
+    $EventLocation = $inData["EventLocation"];
+    $EventPhone = $inData["EventPhone"];
+    $EventEmail = $inData["EventEmail"];
+    $Rso = $inData["Rso"];
+    $Public = $inData["Public"];
+    $UID = $inData["UID"];
+    $Approve = $inData["Approve"];
 
 	$host = "localhost"; // Replace with your database host
     $dbname = "dsp"; // Replace with your database name
@@ -23,8 +27,8 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("INSERT into rso (Name, Category, Description, Location, Phone, Email, Creator, URID) VALUES(?,?,?,?,?,?,?,?)");
-		$stmt->bind_param("ssssssss", $RSOName, $RSOCategory, $RSODescription, $RSOLocation, $RSOPhone, $RSOEmail, $RSOID, $RSOUID);
+		$stmt = $mysqliCon->prepare("INSERT into events (Rso, Public, UID, Approve, EName, ECat, EDesc, Time, Date, Location, Phone, Email) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+		$stmt->bind_param("ssssssssssss", $Rso, $Public, $UID, $Approve, $EventName, $EventCategory, $EventDescription, $EventTime, $EventDate, $EventLocation, $EventPhone, $EventEmail);
 		$stmt->execute();
 
         // Get the ID of the last inserted record

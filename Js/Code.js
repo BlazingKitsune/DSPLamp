@@ -456,6 +456,7 @@ function SearchRso()
 						var temp1 = RCount;
 						var temp2 = RCount;
 						var temp3 = RCount;
+						var temptemp = -1;
 
 						var RsoSlot = 0;
 						
@@ -487,19 +488,21 @@ function SearchRso()
 							{
 								RsoSlot = 1;
 								temp1--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ RID +','+ RsoSlot +','+ temp1 +','+ RID +")'>Delete</button>"+ "</td>";
+								temptemp = -1;
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ temptemp +','+ RsoSlot +','+ temp1 +','+ RID +")'>Delete</button>"+ "</td>";
 							}
 							else if(RSO2 == RID && (RSO1 != RID || RSO3 != RID))
 							{
 								RsoSlot = 2;
 								temp2--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ RID +','+ RsoSlot +','+ temp2 +','+ RID +")'>Delete</button>"+ "</td>";
+								temptemp = -1;
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ temptemp +','+ RsoSlot +','+ temp2 +','+ RID +")'>Delete</button>"+ "</td>";
 							}
 							else if(RSO3 == RID && (RSO2 != RID || RSO1 != RID))
 							{
 								RsoSlot = 3;
 								temp3--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ RID +','+ RsoSlot +','+ temp3 +','+ RID +")'>Delete</button>"+ "</td>";
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deleteRSO("+ temptemp +','+ RsoSlot +','+ temp3 +','+ RID +")'>Delete</button>"+ "</td>";
 							}
 						}
 						if(ID == RCreator && RCount >= 4)
@@ -686,15 +689,15 @@ function deleteRSO(RID,RsoSlot,NewCount,TrueRID)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				if(RID == -1)
+				if(TrueRID == -1)
 				{
 					if(RsoSlot == 1)
 					{
 						readCookie();
 						RSO1 = -1;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 					else if(RsoSlot == 2)
 					{
@@ -702,16 +705,16 @@ function deleteRSO(RID,RsoSlot,NewCount,TrueRID)
 						readCookie();
 						RSO2 = -1;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 					else if(RsoSlot == 3)
 					{
 						readCookie();
 						RSO3 = -1;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 				}
 				else
@@ -721,24 +724,24 @@ function deleteRSO(RID,RsoSlot,NewCount,TrueRID)
 						readCookie();
 						RSO1 = RID;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 					else if(RsoSlot == 2)
 					{
 						readCookie();
 						RSO2 = RID;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 					else if(RsoSlot == 3)
 					{
 						readCookie();
 						RSO3 = RID;
 						saveCookie();
-						deleteRSO(TrueRID);
-						window.location.href = "rsopage.html";
+						deleteRSO2(TrueRID);
+						//window.location.href = "rsopage.html";
 					}
 				}
 			}
@@ -753,7 +756,7 @@ function deleteRSO(RID,RsoSlot,NewCount,TrueRID)
 	}
 }
 
-function deleteRSO(TrueRID)
+function deleteRSO2(TrueRID)
 {
 	readCookie();
 	var jsonCargo = '{"TrueRID" :"'+TrueRID+'"}';
@@ -881,6 +884,15 @@ function addRso()
 		return;
 	}
 
+	if(RSO1 == -1 || RSO2 == -1 || RSO3 == -1)
+	{
+	}
+	else
+	{
+		window.alert("You made too many RSOs");
+		return;
+	}
+
 	var jsonCargo = '{"RSOName" : "' + RSOName + '", "RSOCategory" : "' + RSOCategory + '", "RSODescription" : "' + RSODescription + '", "RSOLocation" : "' + RSOLocation + '", "RSOPhone" : "' + RSOPhone + '", "RSOEmail" : "' + RSOEmail + '", "ID" : "' + ID + '", "UID" : "' + UID + '"}';
 	let url = urlBase + '/Php/addRso.' + extension;
 	let xhr = new XMLHttpRequest();
@@ -903,8 +915,25 @@ function addRso()
 				}
 				else
 				{
-					window.location.href = "rsopage.html";
 					window.alert("RSO Created");
+					var TempRID = jsonObject.RID;
+					var NewCount = 1;
+					var RsoSlot = 0;
+
+					if(RSO1 == -1)
+					{
+						RsoSlot = 1;
+					}
+					else if(RSO2 == -1)
+					{
+						RsoSlot = 2;
+					}
+					else if(RSO3 == -1)
+					{
+						RsoSlot = 3;
+					}
+
+					editRSO(TempRID,RsoSlot,NewCount,TempRID);
 				}
 			}
 
@@ -915,6 +944,170 @@ function addRso()
 	catch(err)
 	{
 		window.alert("Error in adding RSO");
+	}
+}
+
+function addEventPublic()
+{
+
+	EventName = document.getElementById("EventName").value;
+	EventCategory = document.getElementById("EventCategory").value;
+	EventDescription = document.getElementById("EventDescription").value;
+	EventTime = document.getElementById("EventTime").value;
+	EventDate = document.getElementById("EventDate").value;
+	EventLocation = document.getElementById("EventLocation").value;
+	EventPhone = document.getElementById("EventPhone").value;
+	EventEmail = document.getElementById("EventEmail").value;
+	Rso = 0;
+	Public = 1;
+	TempUID = 0;
+	Approve = 0;
+	readCookie();
+
+	if (EventName == "" || EventCategory == "" || EventDescription == "" || EventTime == "" || EventLocation == "" || EventPhone == "" || EventEmail == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+
+	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + TempUID + '"}';
+	let url = urlBase + '/Php/addEvent.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("Event Creation Failed");
+					return;
+				}
+				else
+				{
+					window.alert("Event Created");
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in adding Event");
+	}
+}
+
+function gotoApprove()
+{
+	readCookie();
+	//window.alert(UserLevel);
+	if(UserLevel == 3)
+	{
+		window.location.href = "ApproveEvent.html";
+	}
+	else
+	{
+		window.location.href = "homepage.html";
+	}
+}
+
+function searchApprove()
+{
+	let public = 0;
+
+	let jsonCargo = '{"Public" : "' + public + '",}';
+
+	let url = urlBase + '/Php/LoadEventsApprove.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				if (jsonObject.error) 
+				{
+                    console.log(jsonObject.error);
+					let text = ""
+					document.getElementById("tbody").innerHTML = text;
+					return;
+                }
+				let text = "<table>"
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					var EName = jsonObject.results[i].EName;
+					var ECat = jsonObject.results[i].ECat;
+					var EDesc = jsonObject.results[i].EDesc;
+					var Date = jsonObject.results[i].Date;
+					var Location = jsonObject.results[i].Location;
+					var EID = jsonObject.results[i].EID;
+
+					text += "<tr id='row" + i + "'>"
+					text += "<td><a onclick='Approve("+EID+")'>Approve "+EID+"</a></td>";
+					text += "<td id='EName" + i + "'><span>" + EName + "</span></td>";
+                    text += "<td id='ECat" + i + "'><span>" + ECat + "</span></td>";
+                    text += "<td id='EDesc" + i + "'><span>" + EDesc + "</span></td>";
+                    text += "<td id='Date" + i + "'><span>" + Date + "</span></td>";
+					text += "<td id='Location" + i + "'><span>" + Location + "</span></td>";
+
+					text += "<tr/>"
+				}
+				text += "</table>"
+				document.getElementById("tbody").innerHTML = text;
+			}
+		};
+		xhr.send(jsonCargo);
+	}
+	catch(err)
+	{
+		window.alert("Error in Search");
+	}
+}
+
+function Approve(EID)
+{
+	window.alert(EID);
+	let Approve = 1; 
+	readCookie();
+
+	var jsonCargo = '{"Approve" : "' + Approve + '", "EID" : "' + EID + '"}';
+	let url = urlBase + '/Php/Approve.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+
+			}
+
+		};
+		window.location.href = "ApproveEvent.html";
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in Approving");
 	}
 }
 

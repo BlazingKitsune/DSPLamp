@@ -1,15 +1,10 @@
 <?php
 
 	$inData = getRequestInfo();
-
-	$RSOName = $inData["RSOName"];
-    $RSOCategory = $inData["RSOCategory"];
-    $RSODescription = $inData["RSODescription"];
-    $RSOLocation = $inData["RSOLocation"];
-    $RSOPhone = $inData["RSOPhone"];
-    $RSOEmail = $inData["RSOEmail"];
-    $RSOID = $inData["ID"];
-    $RSOUID = $inData["UID"];
+	
+	$searchResults = "";
+	$searchCount = 0;
+    $Approve = 0;
 
 	$host = "localhost"; // Replace with your database host
     $dbname = "dsp"; // Replace with your database name
@@ -23,18 +18,33 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("INSERT into rso (Name, Category, Description, Location, Phone, Email, Creator, URID) VALUES(?,?,?,?,?,?,?,?)");
-		$stmt->bind_param("ssssssss", $RSOName, $RSOCategory, $RSODescription, $RSOLocation, $RSOPhone, $RSOEmail, $RSOID, $RSOUID);
+		$stmt = $mysqliCon->prepare("SELECT * FROM events WHERE Approve = ?");
+		$stmt->bind_param("s", $Approve);
 		$stmt->execute();
-
-        // Get the ID of the last inserted record
-        $lastInsertedID = $mysqliCon->insert_id;
-
+		
+		$result = $stmt->get_result();
+		
+		while($row = $result->fetch_assoc())
+		{
+			if( $searchCount > 0 )
+			{
+				$searchResults .= ",";
+			}
+			$searchCount++;
+			$searchResults .= '{"EName" : "' . $row["EName"]. '", "ECat" : "' . $row["ECat"]. '", "EDesc" : "' . $row["EDesc"]. '", "Time" : "' . $row["Time"]. '", "Date" : "' . $row["Date"]. '", "Location" : "' . $row["Location"]. '", "Phone" : "' . $row["Phone"]. '", "Email" : "' . $row["Email"]. '", "EID" : "' . $row["EID"]. '"}';
+		}
+		
+		if( $searchCount == 0 )
+		{
+			returnWithError( "No Records Found!" );
+		}
+		else
+		{
+			returnWithInfo( $searchResults );
+		}
+		
 		$stmt->close();
 		$mysqliCon->close();
-
-        // Return the RID (last inserted ID)
-        returnWithInfo($lastInsertedID);
 	}
 
 	function getRequestInfo()
@@ -56,7 +66,7 @@
 	
 	function returnWithInfo( $searchResults )
 	{
-		$retValue = '{"RID":"' . $searchResults . '","error":""}';
+		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
