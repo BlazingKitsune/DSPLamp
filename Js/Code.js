@@ -788,7 +788,7 @@ function addEvent()
 function gotoUni()
 {
 	readCookie();
-	window.alert(UserLevel);
+	//window.alert(UserLevel);
 	if(UserLevel != 3)
 	{
 		window.location.href = "homepage.html";
@@ -847,6 +847,74 @@ function addUni()
 	catch(err)
 	{
 		window.alert("Error in adding University");
+	}
+}
+
+function gotoRso()
+{
+	readCookie();
+	//window.alert(UserLevel);
+	if(UserLevel != 2)
+	{
+		window.location.href = "homepage.html";
+	}
+	else
+	{
+		window.location.href = "AddRso.html";
+	}
+}
+
+function addRso()
+{
+
+	RSOName = document.getElementById("RSOName").value;
+	RSOCategory = document.getElementById("RSOCategory").value;
+	RSODescription = document.getElementById("RSODescription").value;
+	RSOLocation = document.getElementById("RSOLocation").value;
+	RSOPhone = document.getElementById("RSOPhone").value;
+	RSOEmail = document.getElementById("RSOEmail").value;
+	readCookie();
+
+	if (RSOName == "" || RSOCategory == "" || RSODescription == "" || RSOLocation == "" || RSOPhone == "" || RSOEmail == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+
+	var jsonCargo = '{"RSOName" : "' + RSOName + '", "RSOCategory" : "' + RSOCategory + '", "RSODescription" : "' + RSODescription + '", "RSOLocation" : "' + RSOLocation + '", "RSOPhone" : "' + RSOPhone + '", "RSOEmail" : "' + RSOEmail + '", "ID" : "' + ID + '", "UID" : "' + UID + '"}';
+	let url = urlBase + '/Php/addRso.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("RSO taken");
+					return;
+				}
+				else
+				{
+					window.location.href = "rsopage.html";
+					window.alert("RSO Created");
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in adding RSO");
 	}
 }
 

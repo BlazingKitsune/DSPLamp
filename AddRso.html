@@ -5,7 +5,6 @@
         document.addEventListener('DOMContentLoaded', function () 
         {
             readCookie();
-            SearchRso();
         }
         , false);
     </script>
@@ -86,27 +85,93 @@
             margin: 10px 0;
             color: rgb(0, 195, 202);
             font-size: 30px;
+        
+        }
+
+        td{
+            text-align: center; /* Center-align the content within the table cell */
+        }
+        .centered-content{
+            text-align: center; /* Center-align the content inside this div */
+        }
+
+        .centered-content input{
+            width: 400px; /* Set the width of the input field to 400 pixels */
         }
 
     </style>
 </head>
 <body>
 
-<h1>Registered Student Organization Table</h1>
+<h1>Registered Student Organization</h1>
 
 <table border="4" align="center" style="background-color: rgb(207, 169, 0);">
     <tr align="center" style="background-color: rgb(255, 208, 0);">
-        <th width="100">Name</th>
-        <th width="100">Category</th>
-        <th width="100">Description</th>
-        <th width="100">Phone</th>
-        <th width="100">Email</th>
-        <th width="100">Member Count</th>
-        <th width="100">Actions</th>
+        <th width="500">Add RSO</th>
     </tr>
 
-    <tbody id = "tbody">
-        <!-- Rows will be added dynamically here -->
+    <tbody>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Name</label>
+                    <br>
+                    <input type="input" id="RSOName" name="RSOName">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Category</label>
+                    <br>
+                    <input type="input" id="RSOCategory" name="RSOCategory">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Description</label>
+                    <br>
+                    <input type="input" id="RSODescription" name="RSODescription">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Location</label>
+                    <br>
+                    <input type="input" id="RSOLocation" name="RSOLocation">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Phone</label>
+                    <br>
+                    <input type="input" id="RSOPhone" name="RSOPhone">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">RSO Email</label>
+                    <br>
+                    <input type="input" id="RSOEmail" name="RSOEmail">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <button onclick="addRso();" >Add</button>
+                </div>
+            </td>
+        </tr>
     </tbody>
 </table>
 
