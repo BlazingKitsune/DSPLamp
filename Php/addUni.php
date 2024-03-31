@@ -20,7 +20,7 @@
 	} 
 	else
 	{
-		$stmt = $mysqliCon->prepare("INSERT into university (Name, Location, Description, Uemail) VALUES(?,?,?,?)");
+		$stmt = $mysqliCon->prepare("INSERT into university (Name, Location, Description, UEmail) VALUES(?,?,?,?)");
 		$stmt->bind_param("sssi", $UniName, $UniLocation, $UniDescription, $UniEmail);
 		$stmt->execute();
 		$stmt->close();
