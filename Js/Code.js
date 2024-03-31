@@ -1,6 +1,11 @@
 const urlBase = 'http://localhost/dsplamp';
 const extension = 'php';
 
+// User Level
+// 1 = Student
+// 2 = Admin
+// 3 = Super Admin
+
 var Username = "";
 var Password = "";
 var UID = "";
@@ -334,11 +339,13 @@ function SearchUni()
 					if (UID == UUID )
 					{
 						var temp = -1;
-						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ temp +")'>Leave</button>"+ "</td>";
+						UStudentsNum--;
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ temp + ","+ UUID + "," +UStudentsNum+")'>Leave</button>"+ "</td>";
 					}
 					if (UID == -1 )
 					{
-						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ UUID +")'>Join</button>"+ "</td>";
+						UStudentsNum++;
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='edituni("+ UUID + ","+ UUID + "," +UStudentsNum+")'>Join</button>"+ "</td>";
 					}
 					text += "<tr/>"
 				}
@@ -355,10 +362,10 @@ function SearchUni()
 
 }
 
-function edituni(UUID)
+function edituni(UUID,UUUID,UStudentsNum)
 {
 	readCookie();
-	var jsonCargo = '{"UUID" :"'+UUID+'","ID" :"'+ID+'"}';
+	var jsonCargo = '{"UUID" :"'+UUID+'","UID" :"'+UUUID+'","ID" :"'+ID+'","UStudentsNum" :"'+UStudentsNum+'"}';
 	let url = urlBase + '/Php/UpdateUni.' + extension;
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -369,7 +376,7 @@ function edituni(UUID)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				if(UUID == 0)
+				if(UUID == -1)
 				{
 					readCookie();
 					UID = -1;
@@ -776,6 +783,71 @@ function deleteRSO(TrueRID)
 function addEvent()
 {
 	alert("Hello Fucker, It works but in progress")
+}
+
+function gotoUni()
+{
+	readCookie();
+	window.alert(UserLevel);
+	if(UserLevel != 3)
+	{
+		window.location.href = "homepage.html";
+	}
+	else
+	{
+		window.location.href = "AddUni.html";
+	}
+}
+
+function addUni()
+{
+
+	UniName = document.getElementById("UniName").value;
+	UniLocation = document.getElementById("UniLocation").value;
+	UniDescription = document.getElementById("UniDescription").value;
+	UniEmail = document.getElementById("UniEmail").value;
+
+	if (UniName == "" || UniLocation == "" || UniDescription == "" || UniEmail == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+
+	var jsonCargo = '{"UniName" : "' + UniName + '", "UniLocation" : "' + UniLocation + '", "UniDescription" : "' + UniDescription + '", "UniEmail" : "' + UniEmail + '"}';
+	let url = urlBase + '/Php/addUni.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("University taken");
+					return;
+				}
+				else
+				{
+					window.location.href = "unipage.html";
+					window.alert("University Created");
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in adding University");
+	}
 }
 
 function saveCookie()

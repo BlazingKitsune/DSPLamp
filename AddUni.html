@@ -40,7 +40,7 @@
     <a href="/dsplamp/unipage.html">Universities</a>
     <a href="/dsplamp/rsopage.html">RSO</a>
     <a href="/dsplamp/index.html">Reset</a>
-    <a href="/dsplamp/AddUni.html">Add University</a>
+    <a onclick="gotoUni();">Add University</a>
 </nav>
 
 <div style="padding: 16px">
@@ -94,7 +94,7 @@
             text-align: center; /* Center-align the content inside this div */
         }
 
-        #inputField{
+        .centered-content input{
             width: 400px; /* Set the width of the input field to 400 pixels */
         }
 
@@ -106,7 +106,7 @@
 
 <table border="4" align="center" style="background-color: rgb(207, 169, 0);">
     <tr align="center" style="background-color: rgb(255, 208, 0);">
-        <th width="500">Add a University</th>
+        <th width="500">Add University</th>
     </tr>
 
     <tbody>
@@ -115,7 +115,7 @@
                 <div class="centered-content">
                     <label for="inputField">University Name</label>
                     <br>
-                    <input type="input" id="inputField" name="inputField">
+                    <input type="input" id="UniName" name="UniName">
                 </div>
             </td>
         </tr>
@@ -124,7 +124,7 @@
                 <div class="centered-content">
                     <label for="inputField">Location</label>
                     <br>
-                    <input type="input" id="inputField" name="inputField">
+                    <input type="input" id="UniLocation" name="UniLocation">
                 </div>
             </td>
         </tr>
@@ -133,7 +133,7 @@
                 <div class="centered-content">
                     <label for="inputField">Description</label>
                     <br>
-                    <input type="input" id="inputField" name="inputField">
+                    <input type="input" id="UniDescription" name="UniDescription">
                 </div>
             </td>
         </tr>
@@ -142,14 +142,14 @@
                 <div class="centered-content">
                     <label for="inputField">University Email</label>
                     <br>
-                    <input type="input" id="inputField" name="inputField">
+                    <input type="input" id="UniEmail" name="UniEmail">
                 </div>
             </td>
         </tr>
         <tr>
             <td>
                 <div class="centered-content">
-                    <button>Click me</button>
+                    <button onclick="addUni();" >Add</button>
                 </div>
             </td>
         </tr>
