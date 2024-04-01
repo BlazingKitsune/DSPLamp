@@ -74,6 +74,87 @@ function doLogin()
 	}
 
 }
+
+function doSignUp()
+{
+	SName = document.getElementById("Name").value;
+	SEmail = document.getElementById("email").value;
+	SUsername = document.getElementById("username").value;
+	SPassword = document.getElementById("password").value;
+	ScodeLevel = document.getElementById("codeLevel").value;
+	SconfirmPassword = document.getElementById("confirmPassword").value;
+	if (SName == "" || SEmail == "" || SUsername == "" || SPassword == "" || SconfirmPassword == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+
+	if(SPassword != SconfirmPassword)
+	{
+		window.alert("Password Does Not Match Up");
+		return;
+	}
+
+	if(ScodeLevel == "Super Admin")
+	{
+		ScodeLevel = 3;
+	}
+	else if(ScodeLevel == "Admin")
+	{
+		ScodeLevel = 2;
+	}
+	else
+	{
+		ScodeLevel = 1;
+	}
+	
+	console.log(SName);
+	console.log(SEmail);
+	console.log(SUsername);
+	console.log(SPassword);
+	console.log(ScodeLevel);
+	console.log(SconfirmPassword);
+
+	var jsonCargo = '{"Name" : "' + SName + '", "Email" : "' + SEmail + '", "Username" : "' + SUsername + '", "Password" : "' + SPassword + '", "codeLevel" : "' + ScodeLevel + '"}';
+	let url = urlBase + '/Php/signup.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try {
+		xhr.onreadystatechange = function( ) 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				userId = jsonObject.id;
+				firstname = jsonObject.firstName;
+				lastname = jsonObject.lastName;
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("Login Name taken");
+					return;
+				}
+
+				else
+				{
+					window.alert("Account Made");
+					window.location.href = "index.html";
+				}
+			}
+		};
+		xhr.send(jsonCargo);
+	}
+
+	catch(err) {
+		window.alert("Registration Failed");
+		window.alert("Error SignUp");
+	}
+
+}
+
 function EventpageHelper(EventID)
 {
 	EID = EventID;
