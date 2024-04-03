@@ -57,6 +57,7 @@ function doLogin()
 				RSO2 = jsonObject.RSO2;
 				RSO3 = jsonObject.RSO3;
 				UserLevel = jsonObject.UserLevel;
+				RsoAddEvent = -1;
 
 				saveCookie();
 
@@ -244,6 +245,9 @@ function Comments()
 					return;
                 }
 				let text = "<table>"
+				text += "<tr id='row'>"
+				text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addreview("+EID+")'>Add</button>"+ "</td>";
+				text += "<tr/>"
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
 					count = i+1;
@@ -273,6 +277,14 @@ function Comments()
 	{
 		window.alert("Error in Search");
 	}
+}
+
+function editreview(EID)
+{
+	var addInput = prompt("Add Review Coment", "");
+	var addRatingInput = prompt("Add Ratings", "");
+	
+
 }
 
 function editreview(CID,EID)
@@ -864,9 +876,12 @@ function deleteRSO2(TrueRID)
 	}
 }
 
-function addEvent()
+function addEvent(temp)
 {
-	alert("Hello Fucker, It works but in progress")
+	let RsoAddEvent = -1;
+	RsoAddEvent = temp;
+	saveCookie();
+	window.location.href = "AddEventRso.html";
 }
 
 function gotoUni()
@@ -1087,7 +1102,7 @@ function addEventPublic()
 	}
 }
 
-function addEventPrivate()
+function addEventRso()
 {
 
 	EventName = document.getElementById("EventName").value;
@@ -1098,22 +1113,19 @@ function addEventPrivate()
 	EventLocation = document.getElementById("EventLocation").value;
 	EventPhone = document.getElementById("EventPhone").value;
 	EventEmail = document.getElementById("EventEmail").value;
-	Rso = 0;
 	Public = 0;
-	Approve = 0;
+	TempUID = UID;
+	Approve = 1;
 	readCookie();
+	Rso = RsoAddEvent;
 
 	if (EventName == "" || EventCategory == "" || EventDescription == "" || EventTime == "" || EventLocation == "" || EventPhone == "" || EventEmail == "")
 	{
 		window.alert("All Fields Required");
 		return;
 	}
-	if(UID == -1)
-	{
-		window.alert("You are not part of a University");
-	}
 
-	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + UID + '"}';
+	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + TempUID + '"}';
 	let url = urlBase + '/Php/addEvent.' + extension;
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -1259,7 +1271,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "UserID=" + UserID + ",Username=" + Username + ",Password=" + Password + ",UID=" + UID + ",RSO1=" + RSO1 + ",RSO2=" + RSO2 + ",RSO3=" + RSO3 + ",EID=" + EID + ",ID=" + ID + ",UserLevel=" + UserLevel + ";expires=" + date.toGMTString();
+	document.cookie = "UserID=" + UserID + ",Username=" + Username + ",RsoAddEvent=" + RsoAddEvent +  ",Password=" + Password + ",UID=" + UID + ",RSO1=" + RSO1 + ",RSO2=" + RSO2 + ",RSO3=" + RSO3 + ",EID=" + EID + ",ID=" + ID + ",UserLevel=" + UserLevel + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -1276,6 +1288,10 @@ function readCookie()
         if (tokens[0] == "Username") 
 		{
             Username = tokens[1];
+        }
+		if (tokens[0] == "RsoAddEvent") 
+		{
+            RsoAddEvent = tokens[1];
         }
 
         else if (tokens[0] == "Password") 

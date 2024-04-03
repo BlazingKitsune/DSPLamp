@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <script src="Js/Code.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () 
+        {
+            readCookie();
+        }
+        , false);
+    </script>
+<head>
+    <title>Simple Navigation Bar</title>
+    <style>
+        /* Add some basic styling to the navigation bar */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Dark background color */
+            font-family: Arial, sans-serif; /* Use a nice font */
+        }
+
+        .navbar a {
+            float: left; /* Align links to the left side */
+            display: block; /* Make links behave like block elements */
+            color: white; /* White text color */
+            text-align: center; /* Center the text inside links */
+            padding: 14px 20px; /* Add some padding for a nice touch */
+            text-decoration: none; /* No underline on links */
+        }
+
+        .navbar a:hover {
+            background-color: #ddd; /* Change background on hover */
+            color: black; /* Change text color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/dsplamp/homepage.html">Home</a>
+    <a href="/dsplamp/unipage.html">Universities</a>
+    <a href="/dsplamp/rsopage.html">RSO</a>
+    <a href="/dsplamp/index.html">Reset</a>
+    <a onclick="gotoUni();">Add University</a>
+    <a onclick="gotoRso();">Add RSO</a>
+    <a href="/dsplamp/AddEvent.html">Add Events</a>
+    <a onclick="gotoApprove();">Approve Events</a>
+</nav>
+
+<div style="padding: 16px">
+</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple HTML Table</title>
+    <style>
+        
+        /* Basic styling for the background */
+        body{
+        background-color:rgb(119, 101, 0);
+        background-image: url(Assets/EzqCRcdUYAAdbZg.0.jpeg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+
+        /* Basic styling for the table */
+        table {
+            margin: auto;
+            border-color: rgb(0, 0, 0);
+            box-shadow: -1px -1px 6px hsl(192, 100%, 50%), 2px 2px 6px hsl(49, 100%, 50%);
+        }
+
+        th, td {
+
+            border: 2px solid rgb(255, 208, 0);
+            padding: 5px;
+            margin: 10px 0;
+             
+            /*text-align: left; /* Align text to the left in cells*/
+        }
+
+        h1{
+            text-shadow: 0px 0px 3px hsl(184, 100%, 50%);
+            margin: auto;
+            text-align: center;
+            margin: 10px 0;
+            color: rgb(0, 195, 202);
+            font-size: 30px;
+        
+        }
+
+        td{
+            text-align: center; /* Center-align the content within the table cell */
+        }
+        .centered-content{
+            text-align: center; /* Center-align the content inside this div */
+        }
+
+        .centered-content input{
+            width: 400px; /* Set the width of the input field to 400 pixels */
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Events</h1>
+
+<table border="4" align="center" style="background-color: rgb(207, 169, 0);">
+    <tr align="center" style="background-color: rgb(255, 208, 0);">
+        <th width="500">Add Events</th>
+    </tr>
+
+    <tbody>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Name</label>
+                    <br>
+                    <input type="input" id="EventName" name="EventName">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Category</label>
+                    <br>
+                    <input type="input" id="EventCategory" name="EventCategory">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Description</label>
+                    <br>
+                    <input type="input" id="EventDescription" name="EventDescription">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Time</label>
+                    <br>
+                    <input type="input" id="EventTime" name="EventTime">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Date</label>
+                    <br>
+                    <input type="input" id="EventDate" name="EventDate">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Location</label>
+                    <br>
+                    <input type="input" id="EventLocation" name="EventLocation">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Phone</label>
+                    <br>
+                    <input type="input" id="EventPhone" name="EventPhone">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <label for="inputField">Event Email</label>
+                    <br>
+                    <input type="input" id="EventEmail" name="EventEmail">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="centered-content">
+                    <button onclick="addEventRso();" >Add Event</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+
+
+</body>
+</html>
