@@ -161,7 +161,6 @@ function EventpageHelper(EventID)
 	EID = EventID;
 	saveCookie();
 	window.location.href = "eventpage.html";
-
 }
 function Eventpage()
 {
@@ -203,7 +202,6 @@ function Eventpage()
                     text += "<tr id='EDesc" + i + "'><span>" + EDesc + "</span></tr>";
                     text += "<tr id='Date" + i + "'><span>" + Date + "</span></tr>";
 					text += "<tr id='Location" + i + "'><span>" + Location + "</span></tr>";
-					window.alert(EID);
 					text += "<tr/>"
 					text += "<tr>"
 					text += "<th>"
@@ -265,6 +263,7 @@ function Comments()
 					if (ID == UsID )
 					{
 						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='editreview("+ CID +','+ EID +")'>Edit</button>"+ "</td>";
+						text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='deletereview("+ CID +','+ EID +")'>Delete</button>"+ "</td>";
 					}
 					text += "<tr/>"
 				}
@@ -355,6 +354,34 @@ function editreview(CID,EID)
 		window.alert("Invalid");
 	}
 
+}
+
+function deletereview(CID,EID)
+{
+	
+	var jsonCargo = '{"CID" :"'+CID+'"}';
+	let url = urlBase + '/Php/deleteComment.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				window.alert("Review has been deleted");
+				EventpageHelper(EID);
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error");
+	}
 }
 
 function SearchEvents()
