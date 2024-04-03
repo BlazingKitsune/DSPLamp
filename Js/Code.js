@@ -595,7 +595,7 @@ function SearchRso()
 					text += "<tr id='row" + i + "'>"
 					text += "<td id='EName" + i + "'><span>" + RName + "</span></td>";
 					text += "<td id='EName" + i + "'><span>" + RCat + "</span></td>";
-                    text += "<td id='ECat" + i + "'><span>" + RLocation + "</span></td>";
+                    text += "<td id='ECat" + i + "'><span>" + RDescription + "</span></td>";
                     text += "<td id='EDesc" + i + "'><span>" + RPhone + "</span></td>";
                     text += "<td id='Date" + i + "'><span>" + REmail + "</span></td>";
 					text += "<td id='Date" + i + "'><span>" + RCount + "</span></td>";
