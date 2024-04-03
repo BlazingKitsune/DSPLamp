@@ -282,8 +282,12 @@ function Comments()
 
 function addComment(EID)
 {
-	var addInput = prompt("Add Review Coment", "");
+	var addInput = prompt("Add Review Comment", "");
 	var addRatingInput = prompt("Add Ratings", "");
+	if(addInput =="" || addRatingInput =="")
+	{
+		return;
+	}
 	readCookie();
 
 	var jsonCargo = '{"addInput" : "' + addInput + '","addRatingInput" :"' + addRatingInput + '","EID" :"'+EID+'","ID" :"'+ID+'"}';
