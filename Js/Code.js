@@ -188,8 +188,7 @@ function Eventpage()
 					return;
                 }
 				let text = "<table>"
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
+				let i = 0;
 					var EName = jsonObject.results[i].EName;
 					var ECat = jsonObject.results[i].ECat;
 					var EDesc = jsonObject.results[i].EDesc;
@@ -204,9 +203,13 @@ function Eventpage()
                     text += "<tr id='EDesc" + i + "'><span>" + EDesc + "</span></tr>";
                     text += "<tr id='Date" + i + "'><span>" + Date + "</span></tr>";
 					text += "<tr id='Location" + i + "'><span>" + Location + "</span></tr>";
-
+					window.alert(EID);
 					text += "<tr/>"
-				}
+					text += "<tr>"
+					text += "<th>"
+					text +=	"<button onclick='addComment("+EID+");' >Add Comment</button>"  
+					text +=	"</th>"
+					text +=	"</tr>"
 				text += "</table>"
 				document.getElementById("tbodyevent").innerHTML = text;
 			}
@@ -241,13 +244,11 @@ function Comments()
 				{
                     console.log(jsonObject.error);
 					let text = ""
-					document.getElementById("tbodyevent").innerHTML = text;
+					document.getElementById("comments").innerHTML = text;
 					return;
                 }
+				var EID = jsonObject.results[0].EID;
 				let text = "<table>"
-				text += "<tr id='row'>"
-				text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addreview("+EID+")'>Add</button>"+ "</td>";
-				text += "<tr/>"
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
 					count = i+1;
@@ -279,10 +280,35 @@ function Comments()
 	}
 }
 
-function editreview(EID)
+function addComment(EID)
 {
 	var addInput = prompt("Add Review Coment", "");
 	var addRatingInput = prompt("Add Ratings", "");
+	readCookie();
+
+	var jsonCargo = '{"addInput" : "' + addInput + '","addRatingInput" :"' + addRatingInput + '","EID" :"'+EID+'","ID" :"'+ID+'"}';
+	let url = urlBase + '/Php/addComment.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				window.alert("Review has been updated");
+				EventpageHelper(EID);
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error");
+	}
 	
 
 }
@@ -604,19 +630,19 @@ function SearchRso()
 							{
 								RsoSlot = 1;
 								temp1--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent("+RSO1+")'>Add Event</button>"+ "</td>";
 							}
 							else if(RSO2 == RID && (RSO1 != RID || RSO3 != RID))
 							{
 								RsoSlot = 2;
 								temp2--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent("+RSO2+")'>Add Event</button>"+ "</td>";
 							}
 							else if(RSO3 == RID && (RSO2 != RID || RSO1 != RID))
 							{
 								RsoSlot = 3;
 								temp3--;
-								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent()'>Add Event</button>"+ "</td>";
+								text += "<td id='edit_button" + i + "'>" +  "<button id = 'edit' type = 'button' onclick='addEvent("+RSO3+")'>Add Event</button>"+ "</td>";
 							}
 						}
 
@@ -878,7 +904,8 @@ function deleteRSO2(TrueRID)
 
 function addEvent(temp)
 {
-	let RsoAddEvent = -1;
+	readCookie();
+	RsoAddEvent = -1;
 	RsoAddEvent = temp;
 	saveCookie();
 	window.location.href = "AddEventRso.html";
@@ -1102,6 +1129,65 @@ function addEventPublic()
 	}
 }
 
+function addEventPrivate()
+{
+
+	EventName = document.getElementById("EventName").value;
+	EventCategory = document.getElementById("EventCategory").value;
+	EventDescription = document.getElementById("EventDescription").value;
+	EventTime = document.getElementById("EventTime").value;
+	EventDate = document.getElementById("EventDate").value;
+	EventLocation = document.getElementById("EventLocation").value;
+	EventPhone = document.getElementById("EventPhone").value;
+	EventEmail = document.getElementById("EventEmail").value;
+	Rso = 0;
+	Public = 0;
+	TempUID = UID;
+	Approve = 0;
+	readCookie();
+
+	if (EventName == "" || EventCategory == "" || EventDescription == "" || EventTime == "" || EventLocation == "" || EventPhone == "" || EventEmail == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+
+	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + TempUID + '"}';
+	let url = urlBase + '/Php/addEvent.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("Event Creation Failed");
+					return;
+				}
+				else
+				{
+					window.alert("Event Created");
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in adding Event");
+	}
+}
+
 function addEventRso()
 {
 
@@ -1115,7 +1201,7 @@ function addEventRso()
 	EventEmail = document.getElementById("EventEmail").value;
 	Public = 0;
 	TempUID = UID;
-	Approve = 1;
+	Approve = 0;
 	readCookie();
 	Rso = RsoAddEvent;
 
@@ -1148,6 +1234,7 @@ function addEventRso()
 				else
 				{
 					window.alert("Event Created");
+					window.location.href = "homepage.html";
 				}
 			}
 
