@@ -1087,6 +1087,68 @@ function addEventPublic()
 	}
 }
 
+function addEventPrivate()
+{
+
+	EventName = document.getElementById("EventName").value;
+	EventCategory = document.getElementById("EventCategory").value;
+	EventDescription = document.getElementById("EventDescription").value;
+	EventTime = document.getElementById("EventTime").value;
+	EventDate = document.getElementById("EventDate").value;
+	EventLocation = document.getElementById("EventLocation").value;
+	EventPhone = document.getElementById("EventPhone").value;
+	EventEmail = document.getElementById("EventEmail").value;
+	Rso = 0;
+	Public = 0;
+	Approve = 0;
+	readCookie();
+
+	if (EventName == "" || EventCategory == "" || EventDescription == "" || EventTime == "" || EventLocation == "" || EventPhone == "" || EventEmail == "")
+	{
+		window.alert("All Fields Required");
+		return;
+	}
+	if(UID == -1)
+	{
+		window.alert("You are not part of a University");
+	}
+
+	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + UID + '"}';
+	let url = urlBase + '/Php/addEvent.' + extension;
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				var jsonObject = JSON.parse(xhr.responseText);
+				var success = jsonObject.error;
+				console.log(success);
+				
+				if (!success.localeCompare("Failed")) 
+				{
+					window.alert("Event Creation Failed");
+					return;
+				}
+				else
+				{
+					window.alert("Event Created");
+				}
+			}
+
+		};
+		xhr.send(jsonCargo);
+
+	}
+	catch(err)
+	{
+		window.alert("Error in adding Event");
+	}
+}
+
 function gotoApprove()
 {
 	readCookie();
