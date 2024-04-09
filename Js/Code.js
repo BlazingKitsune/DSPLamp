@@ -197,11 +197,11 @@ function Eventpage()
 
 					text += "<tr id='row" + i + "'>"
 					text += "<tr><a onclick='Eventpage("+EID+")'>ID: "+EID+"</a></tr>";
-					text += "<tr id='EName" + i + "'><span>" + EName + "</span></tr>";
-                    text += "<tr id='ECat" + i + "'><span>" + ECat + "</span></tr>";
-                    text += "<tr id='EDesc" + i + "'><span>" + EDesc + "</span></tr>";
-                    text += "<tr id='Date" + i + "'><span>" + Date + "</span></tr>";
-					text += "<tr id='Location" + i + "'><span>" + Location + "</span></tr>";
+					text += "<tr id='EName" + i + "'><span>Name: " + EName + "</span></tr>";
+                    text += "<tr id='ECat" + i + "'><span>Category: " + ECat + "</span></tr>";
+                    text += "<tr id='Date" + i + "'><span>Date: " + Date + "</span></tr>";
+					text += "<tr id='Location" + i + "'><span>Location " + Location + "</span></tr>";
+					text += "<tr id='EDesc" + i + "'><span>Description: " + EDesc + "</span></tr>";
 				text += "</table>"
 				document.getElementById("tbodyevent").innerHTML = text;
 			}

@@ -3,20 +3,20 @@
 
         <style>
             .eventTable2 {
-                width: 100%;
+                width: 80%;
+                margin-left: 250px;
+                margin-right: 250px;
                 background-color: rgb(229, 255, 0);
                 border: rgb(0, 18, 119) 5px double;
                 border-radius: 15px;
-                font-size: 14px; /* Adjust the font size as needed */
-                max-width: 700px;
-                 max-height: 600px;
-                  overflow: auto;
+                font-size: 25px; /* Adjust the font size as needed */
+                padding: 15px;
                 
             }
             
             .eventTable2 th {
                 text-align: center;
-                font-size: 14px; /* Adjust the font size as needed */
+                font-size: 25px; /* Adjust the font size as needed */
                 padding: 15px;
                 background-color: white;
                 width: 100%;
@@ -27,8 +27,61 @@
                 border-bottom: solid rgb(229, 255, 0) 1px;
                 text-align: left;
                 padding: 10px;
-                font-size: 14px; /* Adjust the font size as needed */
+                font-size: 25px; /* Adjust the font size as needed */
             }
+             /* Add some basic styling to the navigation bar */
+        .navbar {
+            overflow: hidden;
+            background-color: #333; /* Dark background color */
+            font-family: Arial, sans-serif; /* Use a nice font */
+        }
+
+        .navbar a {
+            float: left; /* Align links to the left side */
+            display: block; /* Make links behave like block elements */
+            color: white; /* White text color */
+            text-align: center; /* Center the text inside links */
+            padding: 14px 20px; /* Add some padding for a nice touch */
+            text-decoration: none; /* No underline on links */
+        }
+
+        .navbar a:hover {
+            background-color: #ddd; /* Change background on hover */
+            color: black; /* Change text color on hover */
+        }
+        .eventTable {
+            width: 100%;
+            background-color: rgb(229, 255, 0);
+            border: rgb(0, 18, 119) 5px double;
+            border-radius: 15px;
+            
+        }
+        
+        .eventTable th {
+            text-align: center;
+            font-size: 5vh;
+            padding: 15px;
+            background-color: rgb(226, 253, 151);
+            width: 100%;
+            border-bottom: solid rgb(229, 255, 0) 2px;
+        }
+        
+        .eventTable td {
+            border-bottom: solid rgb(0, 0, 0) 1px;
+            text-align: left;
+            padding: 10px;
+            font-size: 15px;
+        }
+        #tbodyevent
+        {
+            text-align: center;
+            font-size: 5vh;
+            padding: 15px;
+            background-color: rgba(142, 170, 15, 0.705);
+            width: 100%;
+            border-bottom: solid rgb(229, 255, 0) 2px;
+        }
+        
         </style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +104,16 @@
         <!-- Change Page title depending on the event name!-->
         <title id="pageTitle">UCF Scheduler - </title>
 
+        <nav class="navbar">
+            <a href="/dsplamp/homepage.html">Home</a>
+            <a href="/dsplamp/unipage.html">Universities</a>
+            <a href="/dsplamp/rsopage.html">RSO</a>
+            <a onclick="gotoUni();">Add University</a>
+            <a onclick="gotoRso();">Add RSO</a>
+            <a href="/dsplamp/AddEvent.html">Add Events</a>
+            <a onclick="gotoApprove();">Approve Events</a>
+            <a href="/dsplamp/index.html">Log Out</a>
+        </nav>
         <div class="event">
             <table class="eventTable">
                 <tr>
@@ -65,6 +128,23 @@
         <!-- Comment Section-->
 
         <table class="eventTable2">
+            <tr>
+                <td>
+                    Comment Number
+                </td>
+                <td>
+                    Owner ID
+                </td>
+                <td>
+                    Comment
+                </td>
+                <td>
+                    Ratings
+                </td>
+                <td>
+                    Actions
+                </td>
+            </tr>
             <tbody id = "comments">
                 <!-- Rows will be added dynamically here -->
             </tbody>
