@@ -1,0 +1,161 @@
+body {
+    background-color: rgb(119, 101, 0);
+    background-image: url(Assets/3615704.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+
+
+.event {
+    padding: 2% 10%;
+}
+
+.eventTable {
+    width: 100%;
+    background-color: rgb(229, 255, 0);
+    border: rgb(0, 18, 119) 5px double;
+    border-radius: 15px;
+    
+}
+
+.eventTable th {
+    text-align: center;
+    font-size: 5vh;
+    padding: 15px;
+    background-color: white;
+    width: 100%;
+    border-bottom: solid rgb(229, 255, 0) 2px;
+}
+
+.eventTable td {
+    border-bottom: solid rgb(229, 255, 0) 1px;
+    text-align: left;
+    padding: 10px;
+    font-size: 3vh;
+}
+
+.description {
+    text-align: left;
+    padding-inline: 2%;
+    margin: 0px 20%;
+    border: rgb(229, 255, 0) 5px double;
+    border-radius: 15px;
+    background-color: white;
+}
+
+#eventDescription {
+    font-size: large;
+}
+
+.eventComments {
+    padding: 2% 8%;
+}
+
+#header {
+    background-color: white;
+    width: fit-content;
+    padding: 1% 5%;
+    margin-inline: 10%;
+    font-size: xx-large;
+    text-align: left;
+    font-style: italic oblique;
+    border-radius: 50px;
+}
+
+.commentBox {
+    border: solid rgb(229, 255, 0) 1px;
+    border-radius: 30px;
+    padding: 1%;
+    width: 550px;
+    margin-inline: 10%;
+    background: white;
+}
+
+.commentBox .commentSubtitle {
+    font-size: medium;
+    margin: 1%;
+}
+
+.commentBox .commentText {
+    font-size: larger;
+}
+
+#rating {
+    text-align: right;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#addCommentButton {
+    margin-inline: 2%;
+    padding: 1% 3%;
+    border: rgb(229, 255, 0) solid 1px;
+    border-radius: 25px;
+    font-size: medium;
+    background-color: rgb(229, 255, 0);
+    font-style: italic;
+}
+
+
+#addCommentButton:hover {
+    background-color: rgb(229, 255, 0);
+    color: white;
+    cursor: pointer;
+}
+
+#addAComment{
+    display: none;
+}
+
+
+.addCommentBox {
+    border: rgb(229, 255, 0) 1px solid;
+    border-radius: 25px;
+    margin-inline: 10%;
+    padding: 2%;
+    margin-top: 15px;
+    background-color: white;
+    font-size: large;
+}
+
+#commentInput {
+    width: 100%;
+    margin: 5px;
+    font-size: large;
+    padding: 2%;
+}
+
+#ratingInput{
+    width: 15%;
+    margin-inline: 5px;
+    padding: 1%;
+}
+
+#submitComment{
+    margin-top: 2%;
+    padding: 1% 3%;
+    border: rgb(229, 255, 0) solid 1px;
+    border-radius: 25px;
+    font-size: medium;
+    background-color: goldenrod;
+    font-style: italic;
+}
+
+#submitComment:hover{
+    cursor: pointer;
+    background-color: rgb(229, 255, 0);
+    color: white;
+}

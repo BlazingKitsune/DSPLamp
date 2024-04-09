@@ -1,0 +1,122 @@
+<html>
+    <head>
+
+        <style>
+            .eventTable2 {
+                width: 100%;
+                background-color: rgb(229, 255, 0);
+                border: rgb(0, 18, 119) 5px double;
+                border-radius: 15px;
+                font-size: 14px; /* Adjust the font size as needed */
+                max-width: 700px;
+                 max-height: 600px;
+                  overflow: auto;
+                
+            }
+            
+            .eventTable2 th {
+                text-align: center;
+                font-size: 14px; /* Adjust the font size as needed */
+                padding: 15px;
+                background-color: white;
+                width: 100%;
+                border-bottom: solid rgb(229, 255, 0) 2px;
+            }
+            
+            .eventTable2 td {
+                border-bottom: solid rgb(229, 255, 0) 1px;
+                text-align: left;
+                padding: 10px;
+                font-size: 14px; /* Adjust the font size as needed */
+            }
+        </style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="style2.css">
+        <script type="text/javascript" src="Js/Code.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function () 
+            {
+                readCookie();
+                Eventpage();
+                Comments();
+            }
+            , false);
+        </script>
+    </head>
+    <body>
+        <!-- Change Page title depending on the event name!-->
+        <title id="pageTitle">UCF Scheduler - </title>
+
+        <div class="event">
+            <table class="eventTable">
+                <tr>
+                    <th id="eventName">Event</th>
+                </tr>
+                <tbody id = "tbodyevent">
+                    <!-- Rows will be added dynamically here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comment Section-->
+
+        <table class="eventTable2">
+            <tbody id = "comments">
+                <!-- Rows will be added dynamically here -->
+            </tbody>
+        </table>
+
+        <!-- Comment Section-->
+
+        <div class="eventComments">
+
+            <button id="addCommentButton"
+                onclick="onAddComment()">Comment</button>
+
+            <div id="addAComment">
+                <div id="addCommentBox" class="addCommentBox">
+                    <form id="addCommentForm">
+                        <label>Rating</label>
+                        <input required id="ratingInput" type="number" min="1" max="5">
+                        <br>
+                        <label>Comment</label>
+                        <br>
+                        <textarea required id="commentInput" type="text"
+                            maxlength="250" placeholder="Comment"></textarea>
+
+                        <button id="submitComment" type="submit"
+                            onclick="addComment()">Add
+                            Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="comments">
+
+        </div>
+
+    </body>
+</html>
+
+<script>
+
+    function onAddComment(){
+        let addComment =  document.getElementById("addAComment");
+        let addButton = document.getElementById("addCommentButton");
+
+        if(addComment.style.display = 'none'){
+            addComment.style.display = 'block';
+            addButton.style.display = 'none';
+        }
+        else{
+            addComment.style.display = 'none';
+            addButton.style.display = 'block';
+        }
+        return;
+    }
+</script>

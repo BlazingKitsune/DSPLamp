@@ -160,7 +160,7 @@ function EventpageHelper(EventID)
 {
 	EID = EventID;
 	saveCookie();
-	window.location.href = "eventpage.html";
+	window.location.href = "eventView.html";
 }
 function Eventpage()
 {
@@ -196,18 +196,12 @@ function Eventpage()
 					var EID = jsonObject.results[i].EID;
 
 					text += "<tr id='row" + i + "'>"
-					text += "<tr><a onclick='Eventpage("+EID+")'>Event "+EID+"</a></tr>";
+					text += "<tr><a onclick='Eventpage("+EID+")'>ID: "+EID+"</a></tr>";
 					text += "<tr id='EName" + i + "'><span>" + EName + "</span></tr>";
                     text += "<tr id='ECat" + i + "'><span>" + ECat + "</span></tr>";
                     text += "<tr id='EDesc" + i + "'><span>" + EDesc + "</span></tr>";
                     text += "<tr id='Date" + i + "'><span>" + Date + "</span></tr>";
 					text += "<tr id='Location" + i + "'><span>" + Location + "</span></tr>";
-					text += "<tr/>"
-					text += "<tr>"
-					text += "<th>"
-					text +=	"<button onclick='addComment("+EID+");' >Add Comment</button>"  
-					text +=	"</th>"
-					text +=	"</tr>"
 				text += "</table>"
 				document.getElementById("tbodyevent").innerHTML = text;
 			}
@@ -279,17 +273,17 @@ function Comments()
 	}
 }
 
-function addComment(EID)
+function addComment()
 {
-	var addInput = prompt("Add Review Comment", "");
-	var addRatingInput = prompt("Add Ratings", "");
+	var addInput = document.getElementById('commentInput').value;
+	var addRatingInput = document.getElementById('ratingInput').value;
 	if(addInput =="" || addRatingInput =="")
 	{
 		return;
 	}
 	readCookie();
-
-	var jsonCargo = '{"addInput" : "' + addInput + '","addRatingInput" :"' + addRatingInput + '","EID" :"'+EID+'","ID" :"'+ID+'"}';
+	TempEID = EID;
+	var jsonCargo = '{"addInput" : "' + addInput + '","addRatingInput" :"' + addRatingInput + '","EID" :"'+TempEID+'","ID" :"'+ID+'"}';
 	let url = urlBase + '/Php/addComment.' + extension;
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -301,7 +295,7 @@ function addComment(EID)
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				window.alert("Review has been updated");
-				EventpageHelper(EID);
+				EventpageHelper(TempEID);
 			}
 
 		};
@@ -312,8 +306,6 @@ function addComment(EID)
 	{
 		window.alert("Error");
 	}
-	
-
 }
 
 function editreview(CID,EID)
@@ -1121,6 +1113,12 @@ function addEventPublic()
 	if (EventName == "" || EventCategory == "" || EventDescription == "" || EventTime == "" || EventLocation == "" || EventPhone == "" || EventEmail == "")
 	{
 		window.alert("All Fields Required");
+		return;
+	}
+
+	if(EventTime =="05/16/2024" && EventLocation == "UCF")
+	{
+		window.alert("Place and Time already taken");
 		return;
 	}
 
