@@ -1116,12 +1116,6 @@ function addEventPublic()
 		return;
 	}
 
-	if(EventTime =="05/16/2024" && EventLocation == "UCF")
-	{
-		window.alert("Place and Time already taken");
-		return;
-	}
-
 	var jsonCargo = '{"EventDate" : "' + EventDate + '","Approve" : "' + Approve + '","EventName" : "' + EventName + '", "EventCategory" : "' + EventCategory + '", "EventDescription" : "' + EventDescription + '", "EventTime" : "' + EventTime + '", "EventLocation" : "' + EventLocation + '", "EventPhone" : "' + EventPhone + '", "EventEmail" : "' + EventEmail + '", "Rso" : "' + Rso + '", "Public" : "' + Public + '", "UID" : "' + TempUID + '"}';
 	let url = urlBase + '/Php/addEvent.' + extension;
 	let xhr = new XMLHttpRequest();
