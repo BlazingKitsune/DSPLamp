@@ -9,11 +9,149 @@
 
         <link rel="stylesheet" href="style.css">
         <script type="text/javascript" src="Js/Code.js"></script>
-
-        <title>UCF Schedule - Sign up</title>
-
     </head>
     <body>
-        
+        <!-- Change Page title depending on the event name!-->
+        <title id="pageTitle">UCF Scheduler - </title>
+
+        <div class="event">
+            <table class="eventTable">
+                <tr>
+                    <th id="eventName">Event</th>
+                </tr>
+                <tr>
+                    <td id="eventID">ID</td>
+                </tr>
+                <tr>
+                    <td id="eventUniversityName">University</td>
+                </tr>
+                <tr>
+                    <td id="eventCategory">Category</td>
+                </tr>
+                <tr>
+                    <td id="eventLocation">
+                        Where
+                    </td>
+                </tr>
+                <tr>
+                    <td id="eventDate">When</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="description">
+            <p id="eventDescription"></p>
+        </div>
+
+        <!-- Comment Section-->
+
+        <h1 id="header">Comments</h1>
+
+
+        <div class="eventComments">
+
+            <button id="addCommentButton"
+                onclick="onAddComment()">Comment</button>
+
+            <div id="addAComment">
+                <div id="addCommentBox" class="addCommentBox">
+                    <form id="addCommentForm">
+                        <label>Rating</label>
+                        <input required id="ratingInput" type="number" min="1" max="5">
+                        <br>
+                        <label>Comment</label>
+                        <br>
+                        <textarea required id="commentInput" type="text"
+                            maxlength="250" placeholder="Comment"></textarea>
+
+                        <button id="submitComment" type="submit"
+                            onclick="submitComment()">Add
+                            Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="comments">
+
+        </div>
+
     </body>
 </html>
+
+<script>
+
+
+    //change description
+    let eventDesc;  //get desc;
+    let eventDescription = document.getElementById('eventDescription');
+    eventDescription.innerHTML = eventDesc;
+
+
+    //load in details
+    let eventCategory = document.getElementById('eventCategory');
+    let eventDate = document.getElementById('eventCategory');
+    let eventID = document.getElementById('eventID');
+    let eventLocation = document.getElementById('eventLocation');
+    let eventUniversityName = document.getElementById('eventUniversityName');
+
+    //change title according to Event
+    let eventTitle = document.getElementById('pageTitle');
+    let eventName; //get event name
+    let title = "University Scheduler - " + eventName;
+    eventTitle.innerHTML = title;
+
+
+    //load in comments
+    
+    let commentsSection = document.getElementById("comments");
+    //for all comments under this event
+    /*
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];{
+            let commentID;
+            let UserID;
+            let rating;
+            let commentBox;
+
+            commentsSection.innerHTML +=  <div id="commentBox" class="commentBox">
+                <div class="row">
+                    <div class="column">
+                        <p class="commentSubtitle" id="commentID">{CommentID}</p>
+                        <p class="commentSubtitle" id="userID">{UserID}</p>
+                    </div>
+                    <div class="column">
+                        <p class="commentSubtitle" id="rating">{rating}</p>
+                    </div>
+                </div>
+                <p class="commentText">{commentInformation}</p>
+            </div>
+        }
+        
+    }
+    */
+
+    function onAddComment(){
+        let addComment =  document.getElementById("addAComment");
+        let addButton = document.getElementById("addCommentButton");
+
+        if(addComment.style.display = 'none'){
+            addComment.style.display = 'block';
+            addButton.style.display = 'none';
+        }
+        else{
+            addComment.style.display = 'none';
+            addButton.style.display = 'block';
+        }
+        return;
+    }
+
+    function submitComment(){
+        let rating = document.getElementById('ratingInput');
+        let comment = document.getElementById('commentInput');
+        /*get useriD and comment id here*/
+        
+        //hide everything
+        onAddComment();
+    }
+</script>
